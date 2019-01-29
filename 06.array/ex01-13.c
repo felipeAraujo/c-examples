@@ -1,29 +1,41 @@
 #include<stdio.h>
 
-#define ARRAYSIZE 8
-#define HISTLENGTH 3
-#define CLUSTER 10
+#define LENGTHUNTIL 10
 
 int main() {
-	int i, j, c, nother;
-	int counter[ARRAYSIZE];
+	int c, i, j, nother, counter;
+	int frequencies[LENGTHUNTIL+1];
 
 	nother = 0;
-	for (i = 0; i < ARRAYSIZE; ++i) 
-		counter[i] = 0;
+	for (i = 0; i < LENGTHUNTIL; ++i)
+		frequencies[i] = 0;
 
+	counter = 0;
 	while ((c = getchar()) != EOF) {
-		if (c >= '0')
-			++counter[(c-'0')/CLUSTER];
-		
+		if (c == ' ' || c == '\n'|| c == '\t') {
+			if (counter > LENGTHUNTIL)
+				++nother;
+			else
+				++frequencies[counter];
+
+			counter = 0;
+		}
+
+		++counter;
 	}
 
 	printf("\n");
-	for (i = 0; i < ARRAYSIZE; ++i) {
-		printf("%c-%c:\t", i*CLUSTER + '0', (i+1)*CLUSTER + '0' - 1);
-		int histLength = counter[i]/HISTLENGTH;
-		for (j = 0; j < histLength; ++j)
+	for (i = 0; i <= LENGTHUNTIL; ++i) {
+		printf("%d:\t", i);
+		for (j = 0; j < frequencies[i]; ++j)
 			printf("=");
 		printf("\n");
 	}
+	
+	printf("ot:\t");
+	for (i = 0; i < nother; ++i)
+		printf("=");
+	printf("\n");
+		
+	return 0;
 }
