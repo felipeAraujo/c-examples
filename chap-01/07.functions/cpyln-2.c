@@ -10,50 +10,50 @@ int getline2(void);
 void copy2(void);
 
 int main() {
-	int len;
-	extern int max;
-	extern char longest[];
+    int len;
+    extern int max;
+    extern char longest[];
 
-	max = 0;
+    max = 0;
 
-	while ((len = getline2()) > 0)
-		if (len > max) {
-			max = len;
-				copy2();
-		}
+    while ((len = getline2()) > 0)
+        if (len > max) {
+            max = len;
+                copy2();
+        }
 
-	if (max > 0)
-		printf("%s", longest);
+    if (max > 0)
+        printf("%s", longest);
 
-	return 0;
+    return 0;
 }
 
 int getline2(void)
 {
-	int c, i;
+    int c, i;
 
-	extern char line[];
+    extern char line[];
 
-	for(i = 0;i < MAXLINE - 1
-		&& (c = getchar()) != EOF && c != '\n';++i)
-		line[i] = c;
+    for(i = 0;i < MAXLINE - 1
+        && (c = getchar()) != EOF && c != '\n';++i)
+        line[i] = c;
 
-	if (c == '\n') {
-		line[i++] = c;
-	}
+    if (c == '\n') {
+        line[i++] = c;
+    }
 
-	line[i] = '\0';
-	return i;
+    line[i] = '\0';
+    return i;
 }
 
 void copy2(void)
 {
-	int i;
-	extern char line[], longest[];
+    int i;
+    extern char line[], longest[];
 
-	i = 0;
+    i = 0;
 
-	while((longest[i] = line[i]) != '\0')
-		++i;
+    while((longest[i] = line[i]) != '\0')
+        ++i;
 }
 

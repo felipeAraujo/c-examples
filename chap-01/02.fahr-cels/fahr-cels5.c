@@ -5,11 +5,11 @@
 #define STEP 20
 
 int main(){
-	int fahr;
+    int fahr;
 
-	for(fahr = 0; fahr <= UPPER; fahr += STEP) {
-		printf("%d\t%6.1f\n", fahr, (5.0/9.0)*(fahr-32));
-	}
+    for(fahr = 0; fahr <= UPPER; fahr += STEP) {
+        printf("%d\t%6.1f\n", fahr, (5.0/9.0)*(fahr-32));
+    }
 
-	return 0;
+    return 0;
 }

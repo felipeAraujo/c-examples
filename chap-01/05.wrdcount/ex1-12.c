@@ -4,24 +4,24 @@
 #define OUT 1
 
 int main() {
-	int state, isWordOut, c;
+    int state, isWordOut, c;
 
-	state = OUT;
+    state = OUT;
 
-	while ((c = getchar()) != EOF) {
+    while ((c = getchar()) != EOF) {
 
-		isWordOut = (c == '\n' || c == ' ' || c == '\t');
+        isWordOut = (c == '\n' || c == ' ' || c == '\t');
 
-		if (isWordOut && state == IN)
-			putchar('\n');
+        if (isWordOut && state == IN)
+            putchar('\n');
 
-		if (isWordOut)
-			state = OUT;
-		else {
-			state = IN;
-			putchar(c);
-		}
-	}
+        if (isWordOut)
+            state = OUT;
+        else {
+            state = IN;
+            putchar(c);
+        }
+    }
 
-	return 0;
+    return 0;
 }

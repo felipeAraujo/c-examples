@@ -8,40 +8,40 @@ void copy2(char to[], char from[]);
 
 int main()
 {
-	int len;
-	char line[MAXLINE];
-	
-	while ((len = getline2(line, MAXLINE)) > 0) {
-		if (len > BASELINE) {
-			printf("%s", line);
-		}
-	}
+    int len;
+    char line[MAXLINE];
 
-	return 0;
+    while ((len = getline2(line, MAXLINE)) > 0) {
+        if (len > BASELINE) {
+            printf("%s", line);
+        }
+    }
+
+    return 0;
 }
 
 int getline2(char line[], int lim)
 {
-	int i, c;
+    int i, c;
 
-	for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i)
-		line[i] = c;
+    for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i)
+        line[i] = c;
 
-	if (c == '\n') {
-		line[i++] = c;
-	}
+    if (c == '\n') {
+        line[i++] = c;
+    }
 
-	line[i] = '\0';
-	
-	return i;
+    line[i] = '\0';
+
+    return i;
 }
 
 void copy2(char to[], char from[])
 {
-	int i;
+    int i;
 
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
+    i = 0;
+    while ((to[i] = from[i]) != '\0')
+        ++i;
 }
 

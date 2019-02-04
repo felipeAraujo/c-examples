@@ -4,29 +4,29 @@
 #define OUT 1
 
 int main() {
-	int c, nl, nw, nc, state;
+    int c, nl, nw, nc, state;
 
-	state = OUT;
+    state = OUT;
 
-	nl = nw = nc = 0;
+    nl = nw = nc = 0;
 
-	while ((c = getchar()) != EOF) {
-		++nc;
+    while ((c = getchar()) != EOF) {
+        ++nc;
 
-		if (c == '\n')
-			++nl;
-		
-		if (c == '\n' || c == ' ' || c == '\t')
-			state = OUT;
-		else if(state == OUT) {
-			++nw;
-			state = IN;
-		}
-	}
+        if (c == '\n')
+            ++nl;
 
-	printf("\ncharacter: %d\n", nc);
-	printf("word: %d\n", nw);
-	printf("line: %d\n", nl);
+        if (c == '\n' || c == ' ' || c == '\t')
+            state = OUT;
+        else if(state == OUT) {
+            ++nw;
+            state = IN;
+        }
+    }
 
-	return 0;
+    printf("\ncharacter: %d\n", nc);
+    printf("word: %d\n", nw);
+    printf("line: %d\n", nl);
+
+    return 0;
 }

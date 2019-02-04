@@ -1,10 +1,10 @@
 #include<stdio.h>
 
 int main() {
-	double nc;
+    double nc;
 
-	for (nc = 0; getchar() != EOF; ++nc) {
-	}
+    for (nc = 0; getchar() != EOF; ++nc) {
+    }
 
-	printf("\n%.0f\n", nc);
+    printf("\n%.0f\n", nc);
 }

@@ -1,20 +1,20 @@
 #include<stdio.h>
 
 int main() {
-	int previous, actual;
+    int previous, actual;
 
-	previous = getchar();
+    previous = getchar();
 
-	putchar(previous);
-	while ((actual = getchar()) != EOF) {
-		if (previous == ' ' && actual == ' ') {
-			continue;
-		}
-		putchar(actual);
-		previous = actual;
-	}
+    putchar(previous);
+    while ((actual = getchar()) != EOF) {
+        if (previous == ' ' && actual == ' ') {
+            continue;
+        }
+        putchar(actual);
+        previous = actual;
+    }
 
-	printf("\n");
+    printf("\n");
 
-	return 0;
+    return 0;
 }

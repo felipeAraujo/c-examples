@@ -7,46 +7,46 @@ void copy2(char to[], char from[]);
 
 int main()
 {
-	int len;
-	int max;
-	char line[MAXLINE];
-	char longest[MAXLINE];
+    int len;
+    int max;
+    char line[MAXLINE];
+    char longest[MAXLINE];
 
-	max = 0;
-	
-	while ((len = getline2(line, MAXLINE)) > 0)
-		if (len > max) {
-			max = len;
-			copy2(longest, line);
-		}
+    max = 0;
 
-	if (max > 0)
-		printf("%s", longest);
+    while ((len = getline2(line, MAXLINE)) > 0)
+        if (len > max) {
+            max = len;
+            copy2(longest, line);
+        }
 
-	return 0;
+    if (max > 0)
+        printf("%s", longest);
+
+    return 0;
 }
 
 int getline2(char line[], int lim) {
-	int c, i;
+    int c, i;
 
-	for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i)
-		line[i] = c;
+    for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i)
+        line[i] = c;
 
-	if (c == '\n') {
-		line[i++] = c;
-	}
+    if (c == '\n') {
+        line[i++] = c;
+    }
 
-	line[i] = '\0';
-	
-	return i;
+    line[i] = '\0';
+
+    return i;
 }
 
 void copy2(char to[], char from[])
 {
-	int i;
+    int i;
 
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
+    i = 0;
+    while ((to[i] = from[i]) != '\0')
+        ++i;
 }
 

@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 int main() {
-	printf("%d\n", EOF);
+    printf("%d\n", EOF);
 
-	return 0;
+    return 0;
 }

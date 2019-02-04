@@ -7,54 +7,54 @@ void copy2(char to[], char from[]);
 
 int main()
 {
-	int len;
-	int max;
-	int textlength;
-	char line[MAXLINE];
-	char longest[MAXLINE];
+    int len;
+    int max;
+    int textlength;
+    char line[MAXLINE];
+    char longest[MAXLINE];
 
-	max = 0;
-	textlength = 0;
-	
-	while ((len = getline2(line, MAXLINE)) > 0) {
-		printf("len: %d\n", len);
-		textlength += len;
-		if (len > max) {
-			max = len;
-			copy2(longest, line);
-		}
-	}
+    max = 0;
+    textlength = 0;
 
-	if (max > 0)
-		printf("%s\n", longest);
+    while ((len = getline2(line, MAXLINE)) > 0) {
+        printf("len: %d\n", len);
+        textlength += len;
+        if (len > max) {
+            max = len;
+            copy2(longest, line);
+        }
+    }
 
-	printf("Text Length: %d\n", textlength);
+    if (max > 0)
+        printf("%s\n", longest);
 
-	return 0;
+    printf("Text Length: %d\n", textlength);
+
+    return 0;
 }
 
 int getline2(char line[], int lim)
 {
-	int i, c;
+    int i, c;
 
-	for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i)
-		line[i] = c;
+    for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i)
+        line[i] = c;
 
-	if (c == '\n') {
-		line[i++] = c;
-	}
+    if (c == '\n') {
+        line[i++] = c;
+    }
 
-	line[i] = '\0';
-	
-	return i;
+    line[i] = '\0';
+
+    return i;
 }
 
 void copy2(char to[], char from[])
 {
-	int i;
+    int i;
 
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
+    i = 0;
+    while ((to[i] = from[i]) != '\0')
+        ++i;
 }
 

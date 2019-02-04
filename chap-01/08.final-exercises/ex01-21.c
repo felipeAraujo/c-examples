@@ -5,29 +5,29 @@
 void printSpace(int);
 
 int main() {
-	int i, c;
+    int i, c;
 
-	i = 0;
-	while((c = getchar()) != EOF ) {
-		if (c == '\t') {
-			printSpace(TABSIZE - i);
-			i = 0;
-			continue;
-		}
-		else
-			printf("%c", c);
+    i = 0;
+    while((c = getchar()) != EOF ) {
+        if (c == '\t') {
+            printSpace(TABSIZE - i);
+            i = 0;
+            continue;
+        }
+        else
+            printf("%c", c);
 
-		i = (i + 1) % TABSIZE;
-	}
+        i = (i + 1) % TABSIZE;
+    }
 
-	printf("\n");
+    printf("\n");
 
 }
 
 void printSpace(int size)
 {
-	int i;
-	for(i= 0; i < size; ++i)
-		printf(" ");
+    int i;
+    for(i= 0; i < size; ++i)
+        printf(" ");
 }
 
