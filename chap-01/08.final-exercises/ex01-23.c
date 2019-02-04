@@ -1,15 +1,16 @@
 #include<stdio.h>
 
-char checkIfComment(void);
-char handleInComment(void);
-char handleInCommentComplex(void);
-char handleInString(char);
+int checkIfComment(void);
+int handleInComment(void);
+int handleInCommentComplex(void);
+int handleInString(char);
 
 int main() {
     int c;
+    int checkChar;
 
     while ((c = getchar()) != EOF) {
-        char checkChar = '';
+        checkChar = '\0';
 
         if (c == '/') {
             checkChar = checkIfComment();
@@ -20,21 +21,15 @@ int main() {
                 checkChar = handleInComment();
             else if (checkChar == '*')
                 checkChar = handleInCommentComplex();
-            else {
+            else
                 printf("/%c", checkChar);
-            }
-
-            if (checkChar == EOF)
-                return 1;
-
-            continue;
-        }
-
-        if (c == '"')
+        } else if (c == '"')
             checkChar = handleInString('"');
-
-        if (c == '\'')
+        else  if (c == '\'')
             checkChar = handleInString('\'');
+        else
+            printf("%c", c);
+
 
         if (checkChar == EOF)
             return 1;
@@ -43,11 +38,12 @@ int main() {
     return 0;
 }
 
-char checkIfComment() {
+int checkIfComment() {
     return getchar();
 }
 
-char handleInComment() {
+int handleInComment() {
+    int c;
     while ((c = getchar()) != '\n')
         if (c == EOF)
             return EOF;
@@ -55,15 +51,18 @@ char handleInComment() {
     return '\n';
 }
 
-char handleInCommentComplex()
+int handleInCommentComplex()
 {
     int stateFirstToFinish = 0;
+    int c;
     while((c = getchar()) != EOF) {
-        if (c == '*')
+        if (c == '*') {
             stateFirstToFinish = 1;
+            continue;
+        }
 
         if (stateFirstToFinish && c == '/')
-            return ' ';
+            return '\0';
 
         if (stateFirstToFinish && c != '/')
             stateFirstToFinish = 0;
@@ -72,9 +71,10 @@ char handleInCommentComplex()
     return EOF;
 }
 
-char handleInString(char charString)
+int handleInString(char charString)
 {
     int statePreviousBackslash = 0;
+    int c;
 
     printf("%c", charString);
 
@@ -88,7 +88,7 @@ char handleInString(char charString)
 
         if (c == charString && !statePreviousBackslash) {
             printf("%c", c);
-            return '';
+            return '\0';
         }
 
         if (statePreviousBackslash) {
