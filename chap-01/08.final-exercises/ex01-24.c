@@ -5,37 +5,51 @@
 #define PREVIOUSBACKSLAHS 2
 #define INDQUOTE 3
 #define PREVIOUSBACKSLASHD 4
-#define INBRACKETS 5
-#define FIRSTCOMMENTSTRING 6
-#define INCOMMENT 7
-#define INSCOMMENT 8
-#define FIRSTOUTCOMMENT 9
-#define INPARENTHESES 10
-#define INBRACES 11
+#define FIRSTCOMMENTSTRING 5
+#define INCOMMENT 6
+#define INSCOMMENT 7
+#define FIRSTOUTCOMMENT 8
 
-#define OUTBRACKETERROR 12
-#define OUTBRACEERROR 13
-#define OUTPARENTHESEERROR 14
+#define BRACKETERROR 12
+#define BRACEERROR 13
+#define PARENTHESEERROR 14
+#define CODEERROR 15
+
+
+#define STACKLENGTH 100
 
 int handleOutEverything(int);
 int handleInSQuote(int);
 int handlePreviousBackslashS(int);
 int handleInDQuote(int);
 int handlePreviousBackslashD(int);
-int handleInBrackets(int);
 int handleFirstCommentString(int);
 int handleInComment(int);
 int handleInSCommemt(int);
 int handleFirstOutComment(int);
-int handleInParentheses(int);
-int handleInBraces(int);
+
+int handleBrackets(char);
+int handleParenthesis(char);
+int handleBraces(char);
+
+void putStack(char);
+char getStack(void);
+
+int openClose[STACKLENGTH];
+int counter = 0;
 
 int main() {
-
     int state = OUTEVERYTHING;
-    int c;
+    int c, i;
+
+    for (i = 0; i < STACKLENGTH; ++i)
+        openClose[i] = 0;
 
     while ((c = getchar()) != EOF) {
+        switch(state) {
+            case OUTÉVERYTHING:
+                state = handleOutEverything(c);
+        }
     }
 
     if (state == OUTEVERYTHING)
@@ -44,7 +58,17 @@ int main() {
     return 0;
 }
 
-int handleOutEvything(int c)
+void putStack(char c)
+{
+    openClose[counter++] = c;
+}
+
+char getStack()
+{
+    return openClose[--counter];
+}
+
+int handleOutEverything(int c)
 {
     switch(c) {
         case '"':
@@ -54,18 +78,35 @@ int handleOutEvything(int c)
         case '/':
             return FIRSTCOMMENTSTRING;
         case '[':
-            return INBRACKETS;
         case ']':
-            return OUTBRACKETERROR;
+            return handleBrackets(c);
         case '{':
-            return INBRACES;
         case '}':
-            return OUTBRACEERROR;
+            return handleBraces(c);
         case '(':
-            return INPARENTHESES;
         case ')':
-            return OUTPARENTHESEERROR;
+            return handleParenthesis(c);
         default:
             return OUTEVERYTHING;
     }
 }
+
+int handleBrackets(c)
+{
+    char fromStack = '\0';
+    switch(c) {
+        case '[':
+            putStack('[');
+            return OUTEVERYTHING;
+        case ']':
+            fromStack = getStack();
+        default:
+            return CODEERROR;
+    }
+
+    if (fromStack == '[')
+        return OUTEVERYTHING;
+    else
+        return BRACKETERROR;
+}
+
