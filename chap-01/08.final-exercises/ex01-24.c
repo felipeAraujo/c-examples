@@ -15,7 +15,6 @@
 #define PARENTHESEERROR 14
 #define CODEERROR 15
 
-
 #define STACKLENGTH 100
 
 int handleOutEverything(int);
@@ -91,7 +90,7 @@ int handleOutEverything(int c)
     }
 }
 
-int handleBrackets(c)
+int handleBrackets(char c)
 {
     char fromStack = '\0';
     switch(c) {
@@ -110,3 +109,107 @@ int handleBrackets(c)
         return BRACKETERROR;
 }
 
+int handleBraces(char c)
+{
+    char fromStack = '\0';
+    switch(c) {
+        case '{':
+            putStack(c);
+            return OUTEVERYTHING;
+        case '}':
+            fromStack = getStack();
+        default:
+            return CODEERROR;
+    }
+
+    if (fromStack == '{')
+        return OUTEVERYTHING;
+    else
+        return BRACERROR;
+}
+
+int handleParenthesis(char c)
+{
+    char fromStack = '\0';
+    switch(c) {
+        case '(':
+            putStack(c);
+            return OUTEVERYTHING;
+        case ')':
+            fromStack = getStack();
+        default:
+            return CODEERROR;
+    }
+
+    if (fromStack == '(')
+        return OUTEVERYTHING;
+    else
+        return PARENTHESEERROR;
+}
+
+int handleInDQuote(int c)
+{
+    switch(c) {
+        case '\\':
+            return PREVIOUSBACKSLASHD;
+        case '"':
+            return OUTEVERYTHING;
+        default:
+            return INDQUOTE;
+    }
+}
+
+int handlePreviousBackslashD(int c)
+{
+    return INDQUOTE;
+}
+
+int handleInSQuote(int c)
+{
+    switch(c) {
+        case '\\':
+            return PREVIOUSBACKSLASHS;
+        case '\'':
+            return OUTEVERYTHING;
+        default:
+            return INSQUOTE;
+    }
+}
+
+int handleFirstCommentString(int c)
+{
+    switch(c) {
+        case '/':
+            return INSCOMMENT;
+        case '*':
+            return INCOMMENT;
+        default:
+            return OUTEVERYTHING;
+    }
+}
+
+int handleInSComment(int c)
+{
+    switch(c) {
+        case '\n':
+            return OUTEVERYTHING;
+        default:
+            return INSCOMMENT;
+    }
+}
+
+int handleInComment(int c)
+{
+    switch(c) {
+        case '*':
+            return FIRSTOUTCOMMENT;
+        default:
+            return INCOMMENT;
+    }
+}
+
+int handleFirstOutComment(int c)
+{
+    switch(c) {
+    }
+}
