@@ -45,14 +45,52 @@ int main() {
         openClose[i] = 0;
 
     while ((c = getchar()) != EOF) {
+        int shouldLeave = 0;
         switch(state) {
             case OUTÉVERYTHING:
                 state = handleOutEverything(c);
+                break;
+            case INDQUOTE:
+                state = handleInDQuote(c);
+                break;
+            case PREVIOUSBACKSLASHD:
+                state = handlePreviousBacklashD(c);
+                break;
+            case INSQUOTE:
+                state = handleInSQuote(c);
+                break;
+            case PREVIOUSBACKSLASHS:
+                state = handlePreviousBackslashS(c);
+                break;
+            case FIRSTCOMMENTSTRING:
+                state = handleFirstCommentString(c);
+                break;
+            case INCOMMENT:
+                state = handleInComment(c);
+                break;
+            case INSCOMMENT:
+                state = handleInSComment(c);
+                break;
+            case FIRSTOUTCOMMENT:
+                state = handleFirstOutComment(c);
+                break;
+            default:
+                shouldLeave = 1;
         }
+
+        if (shouldLeave)
+            break;
     }
 
-    if (state == OUTEVERYTHING)
+    int acceptable = (state == OUTEVERYTHING || state == INSCOMMENT);
+
+    if (acceptable && (counter == 0))
         printf("The sintax is correct\n");
+
+    if (acceptable && (counter > 0))
+        printf("Some Brackets, braces os parenthesis must be closed\n");
+
+    if (state != OUTEVERYTHING
 
     return 0;
 }
@@ -211,5 +249,9 @@ int handleInComment(int c)
 int handleFirstOutComment(int c)
 {
     switch(c) {
+        case '/':
+            return OUTEVERYTHING;
+        default:
+            return INCOMMENT;
     }
 }
