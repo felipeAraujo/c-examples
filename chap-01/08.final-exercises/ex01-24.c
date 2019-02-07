@@ -2,7 +2,7 @@
 
 #define OUTEVERYTHING 0
 #define INSQUOTE 1
-#define PREVIOUSBACKSLAHS 2
+#define PREVIOUSBACKSLASHS 2
 #define INDQUOTE 3
 #define PREVIOUSBACKSLASHD 4
 #define FIRSTCOMMENTSTRING 5
@@ -24,7 +24,7 @@ int handleInDQuote(int);
 int handlePreviousBackslashD(int);
 int handleFirstCommentString(int);
 int handleInComment(int);
-int handleInSCommemt(int);
+int handleInSComment(int);
 int handleFirstOutComment(int);
 
 int handleBrackets(char);
@@ -47,14 +47,14 @@ int main() {
     while ((c = getchar()) != EOF) {
         int shouldLeave = 0;
         switch(state) {
-            case OUTÉVERYTHING:
+            case OUTEVERYTHING:
                 state = handleOutEverything(c);
                 break;
             case INDQUOTE:
                 state = handleInDQuote(c);
                 break;
             case PREVIOUSBACKSLASHD:
-                state = handlePreviousBacklashD(c);
+                state = handlePreviousBackslashD(c);
                 break;
             case INSQUOTE:
                 state = handleInSQuote(c);
@@ -74,7 +74,7 @@ int main() {
             case FIRSTOUTCOMMENT:
                 state = handleFirstOutComment(c);
                 break;
-            default:
+            defaulti:
                 shouldLeave = 1;
         }
 
@@ -85,12 +85,23 @@ int main() {
     int acceptable = (state == OUTEVERYTHING || state == INSCOMMENT);
 
     if (acceptable && (counter == 0))
-        printf("The sintax is correct\n");
+        printf("\nThe sintax is correct\n");
 
     if (acceptable && (counter > 0))
-        printf("Some Brackets, braces os parenthesis must be closed\n");
+        printf("\nSome Brackets, braces os parenthesis must be closed\n");
 
-    if (state != OUTEVERYTHING
+    if (state == BRACEERROR)
+        printf("\nWas expected }\n");
+
+    if (state == PARENTHESEERROR)
+        printf("\nWas expected )\n");
+
+    if (state == BRACKETERROR)
+        printf("\nWas expected ]\n");
+    
+    if (!acceptable)
+        printf("\nThere are(is) error(s) in your code\n");
+
 
     return 0;
 }
@@ -163,7 +174,7 @@ int handleBraces(char c)
     if (fromStack == '{')
         return OUTEVERYTHING;
     else
-        return BRACERROR;
+        return BRACEERROR;
 }
 
 int handleParenthesis(char c)
@@ -212,6 +223,11 @@ int handleInSQuote(int c)
         default:
             return INSQUOTE;
     }
+}
+
+int handlePreviousBackslashS(int c)
+{
+    return INSQUOTE;
 }
 
 int handleFirstCommentString(int c)
