@@ -86,20 +86,17 @@ int main() {
 
     if (acceptable && (counter == 0))
         printf("\nThe sintax is correct\n");
-
-    if (acceptable && (counter > 0))
+    else if (acceptable && (counter > 0))
         printf("\nSome Brackets, braces os parenthesis must be closed\n");
-
-    if (state == BRACEERROR)
-        printf("\nWas expected }\n");
-
-    if (state == PARENTHESEERROR)
-        printf("\nWas expected )\n");
-
-    if (state == BRACKETERROR)
-        printf("\nWas expected ]\n");
-    
-    if (!acceptable)
+     else if (state == BRACEERROR)
+        printf("\nWas expected {\n");
+    else if (state == PARENTHESEERROR)
+        printf("\nWas expected (\n");
+    else if (state == BRACKETERROR)
+        printf("\nWas expected [\n");
+    else if (state == CODEERROR)
+        printf("\nThere is error in this code\n");
+    else
         printf("\nThere are(is) error(s) in your code\n");
 
 
@@ -148,6 +145,7 @@ int handleBrackets(char c)
             return OUTEVERYTHING;
         case ']':
             fromStack = getStack();
+            break;
         default:
             return CODEERROR;
     }
@@ -167,6 +165,7 @@ int handleBraces(char c)
             return OUTEVERYTHING;
         case '}':
             fromStack = getStack();
+            break;
         default:
             return CODEERROR;
     }
@@ -186,6 +185,7 @@ int handleParenthesis(char c)
             return OUTEVERYTHING;
         case ')':
             fromStack = getStack();
+            break;
         default:
             return CODEERROR;
     }
