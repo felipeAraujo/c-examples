@@ -98,7 +98,7 @@ int main() {
 
     if (state == BRACKETERROR)
         printf("\nWas expected ]\n");
-    
+
     if (!acceptable)
         printf("\nThere are(is) error(s) in your code\n");
 
